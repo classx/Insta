@@ -137,13 +137,13 @@
                                 <rect key="frame" x="16" y="105" width="118" height="130"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Caption: " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XbP-jx-kxj">
-                                <rect key="frame" x="155" y="115" width="184" height="21"/>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Caption: " borderStyle="roundedRect" placeholder="Caption: " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g4A-vY-xt2">
+                                <rect key="frame" x="182" y="105" width="100" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="zxJ-tE-TYW"/>
@@ -157,6 +157,12 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="captionField" destination="g4A-vY-xt2" id="fJG-pW-8uA"/>
+                        <outlet property="captionPost" destination="g4A-vY-xt2" id="ZLM-p4-jrT"/>
+                        <outlet property="imagePost" destination="8kH-x9-b9g" id="a5G-J1-jAM"/>
+                        <outlet property="imageView" destination="8kH-x9-b9g" id="eGs-fY-yWt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gsf-kF-eoh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
