@@ -7,9 +7,21 @@
 //
 
 import UIKit
+import Parse
+//import ParseUI
 
 class PostTableViewCell: UITableViewCell {
 
+    /*
+    @IBOutlet weak var photoView: PFImageView!
+    
+    var instagramPost: PFObject! {
+        didSet {
+            self.photoView.file = instagramPost["image"] as? PFFile
+            self.photoView.loadInBackground()
+        }
+    }*/
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
