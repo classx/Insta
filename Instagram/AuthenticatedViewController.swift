@@ -25,6 +25,9 @@ class AuthenticatedViewController: UIViewController, UITableViewDataSource {
          // PFUser.current() will now be nil
          } */
     }
+    
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 0
     }
@@ -38,7 +41,7 @@ class AuthenticatedViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.tableView.dataSource = self
+        //self.tableView.dataSource = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
