@@ -11,6 +11,7 @@ import Parse
 import ParseLiveQuery
 
 
+
 class PostViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var imageView: UIImageView!
@@ -21,21 +22,45 @@ class PostViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     var alertController = UIAlertController(title: "New Post", message: nil, preferredStyle: .actionSheet)
     
     
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        
-        /* Move this to a new method*/
+        //Creates post options
+        let takePhotoAction = UIAlertAction(title: "Take Photo", style: .default) { (action) in
+            self.imagePickerLaunch(source: .camera)
+        }
+        alertController.addAction(takePhotoAction)
+        let libImportAction = UIAlertAction(title: "Choose from Library", style: .default) { (action) in
+            self.imagePickerLaunch(source: .photoLibrary)
+        }
+        alertController.addAction(libImportAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+            self.tabBarController?.selectedIndex = 0
+        }
+    }
+    
+    func imagePickerLaunch(source: UIImagePickerControllerSourceType){
+        // vc: view controller of image picker
         let vc = UIImagePickerController()
         vc.delegate = self
         vc.allowsEditing = true
-        vc.sourceType = UIImagePickerControllerSourceType.photoLibrary
+        
+        if source == .camera {
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                print("Camera is available 📸")
+                vc.sourceType = .camera
+            } else {
+                // add alert here to say camera not available
+                print("Camera 🚫 available so we will use photo library instead")
+                vc.sourceType = .photoLibrary
+            }
+        }
+        else {
+            vc.sourceType = .photoLibrary
+        }
         
         self.present(vc, animated: true, completion: nil)
-        
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -43,6 +68,26 @@ class PostViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             self.imagePost = UIImage(named: "imageName")
             self.captionPost = ""
             present(alertController, animated: true)
+        }
+    }
+    
+    // shared a new post
+    @IBAction func onShare(_ sender: Any) {
+      //  MBProgressHUD.showAdded(to: self.view, animated: true)
+        captionPost = captionField.text ?? ""
+        
+        Post.postUserImage(image: imagePost, withCaption: captionPost) { (status: Bool, error: Error?) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                print("Post successful")
+         //       MBProgressHUD.hide(for: self.view, animated: true)
+                //Goes back to feed after posting
+                self.tabBarController?.selectedIndex = 0
+                //Reset photo selected
+                self.imagePost = UIImage(named: "imageName")
+                self.captionPost = ""
+            }
         }
     }
     

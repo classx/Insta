@@ -10,7 +10,6 @@ target 'Instagram' do
   pod 'ParseUI'
   pod 'ParseLiveQuery'
   pod 'MBProgressHUD'
-  
 
   target 'InstagramTests' do
     inherit! :search_paths

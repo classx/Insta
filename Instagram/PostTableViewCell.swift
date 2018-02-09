@@ -10,6 +10,11 @@ import UIKit
 import Parse
 import ParseUI
 
+@objc protocol PostTableViewCellDelegate {
+    func postCell(_ cell: PostTableViewCell, didLike post: PFObject?)
+}
+
+
 class PostTableViewCell: UITableViewCell {
 
     /*
