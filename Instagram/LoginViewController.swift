@@ -17,7 +17,24 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // Change up the following to hid3 pw txt
+        //Create alert controllers
+        let tryAgainAction = UIAlertAction(title: "Try Again", style: .cancel) { (action) in
+        }
+        let wrongPasswordAlertController = UIAlertController(title: "Incorrect password", message: "The password you entered is incorrect. Please try again.", preferredStyle: .alert)
+        let noUsernameAlertController = UIAlertController(title: "No username", message: "Please enter a username and try again.", preferredStyle: .alert)
+        let invalidUsernameAlertController = UIAlertController(title: "Username is already taken", message: "The username you entered is already taken. Please enter a new one and try again.", preferredStyle: .alert)
+        wrongPasswordAlertController.addAction(tryAgainAction)
+        noUsernameAlertController.addAction(tryAgainAction)
+        invalidUsernameAlertController.addAction(tryAgainAction)
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        
+        //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
+        //tap.cancelsTouchesInView = false
+        
+        view.addGestureRecognizer(tap)
+        
     }
 
     override func didReceiveMemoryWarning() {

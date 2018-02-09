@@ -76,7 +76,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="520" id="GTX-NY-n6R" customClass="PostCell" customModule="Instagram" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="520" id="GTX-NY-n6R" customClass="PostTableViewCell" customModule="Instagram" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="520"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GTX-NY-n6R" id="FCy-Xf-lCF">
@@ -133,6 +133,7 @@
                                                     <state key="selected" image="liked"/>
                                                     <connections>
                                                         <action selector="didTapLikeButton:" destination="GTX-NY-n6R" eventType="touchUpInside" id="MYH-qz-AUq"/>
+                                                        <action selector="likeTapped:" destination="GTX-NY-n6R" eventType="touchUpInside" id="mEl-dU-ffg"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -160,14 +161,14 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="captionLabel" destination="Aqt-G6-YaA" id="cTw-tj-5bZ"/>
-                                            <outlet property="likeButton" destination="VZh-ah-HHI" id="m1T-lf-aZG"/>
-                                            <outlet property="likesLabel" destination="oao-FW-s2P" id="Qiw-Vd-CIT"/>
-                                            <outlet property="photoView" destination="aO8-MM-EGr" id="AEl-Q5-XFe"/>
-                                            <outlet property="userLabel" destination="nLx-eA-AsN" id="QSp-3E-jEU"/>
-                                            <outlet property="userLabel2" destination="Qee-ho-3E4" id="YII-Ee-jox"/>
-                                            <outlet property="userView" destination="lI8-Mr-ZQo" id="OaY-Zu-Kzh"/>
-                                            <segue destination="HR9-rn-hYv" kind="showDetail" id="pzA-ta-Llz"/>
+                                            <outlet property="captionLabel" destination="Aqt-G6-YaA" id="z5H-N8-VXU"/>
+                                            <outlet property="likeButton" destination="VZh-ah-HHI" id="2xb-fy-PFF"/>
+                                            <outlet property="likesLabel" destination="3c1-EH-Sja" id="KS3-jU-zj1"/>
+                                            <outlet property="photoView" destination="aO8-MM-EGr" id="2Lf-2p-1vu"/>
+                                            <outlet property="userLabel" destination="nLx-eA-AsN" id="OU1-cK-5Xn"/>
+                                            <outlet property="userLabel2" destination="Qee-ho-3E4" id="Bgw-Ix-JtB"/>
+                                            <outlet property="userView" destination="lI8-Mr-ZQo" id="QDE-lQ-P5d"/>
+                                            <segue destination="HR9-rn-hYv" kind="showDetail" id="kCp-61-1pX"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -188,6 +189,9 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableViewPosts" destination="mUb-pt-JgI" id="b9T-li-Xet"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d99-2L-Ywm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -525,8 +529,8 @@
                                 <rect key="frame" x="16" y="105" width="118" height="130"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Caption: " borderStyle="roundedRect" placeholder="Caption: " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f09-G2-gco">
-                                <rect key="frame" x="182" y="105" width="100" height="30"/>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text=" " borderStyle="roundedRect" placeholder="Caption:" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f09-G2-gco">
+                                <rect key="frame" x="161" y="105" width="198" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -542,6 +546,9 @@
                                 <rect key="frame" x="276" y="7" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Share"/>
+                                <connections>
+                                    <action selector="onShare:" destination="zz4-qi-w5w" eventType="touchUpInside" id="KLh-Hn-yBF"/>
+                                </connections>
                             </button>
                             <connections>
                                 <action selector="onShare:" destination="zz4-qi-w5w" id="8Ri-96-1Rm"/>
@@ -555,7 +562,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xVC-J6-gRi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2449" y="-304"/>
+            <point key="canvasLocation" x="2448.8000000000002" y="-304.4977511244378"/>
         </scene>
         <!--Post-->
         <scene sceneID="aQ6-uW-T7p">

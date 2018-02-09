@@ -9,9 +9,30 @@
 import UIKit
 import Parse
 
-class AuthenticatedViewController: UIViewController, UITableViewDataSource {
+class AuthenticatedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, PostTableViewCellDelegate {
+    
     
     @IBOutlet weak var tableViewPosts: UITableView!
+    var refreshControl: UIRefreshControl!
+    var feed: [PFObject] = []
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        //self.tableView.dataSource = self
+        //Refresh Control Initialized
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
+        if refreshControl != nil {
+            tableViewPosts.insertSubview(refreshControl, at: 0)
+        }
+        tableViewPosts.dataSource = self
+        tableViewPosts.delegate = self
+        tableViewPosts.separatorStyle = .none
+        
+        pullRefresh()
+    }
+    
     
     @IBAction func logOutPressed(_ sender: Any) {
         
@@ -27,28 +48,84 @@ class AuthenticatedViewController: UIViewController, UITableViewDataSource {
     }
     
     
+    func pullRefresh() {
+        var feedPosts: [PFObject] = []
+        let query = PFQuery(className: "Post")
+        query.order(byDescending: "createdAt")
+        query.includeKey("author")
+        query.limit = 20
+        query.findObjectsInBackground { (posts: [PFObject]?, error: Error?) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                if let posts = posts {
+                    for post in posts {
+                        feedPosts.append(post)
+                    }
+                    self.feed = feedPosts
+                    self.tableViewPosts.reloadData()
+                    print("Feed reloaded")
+                }
+            }
+        }
+    }
+    
+    @objc func refreshControlAction(_ refreshControl: UIRefreshControl) {
+        pullRefresh()
+        refreshControl.endRefreshing()
+    }
+    
+    
+    // from PostTableViewCellDelegate
+    func postCell(_ cell: PostTableViewCell, didLike post: PFObject?) {
+        print("called postcell")
+        let indexPath = tableViewPosts.indexPath(for: cell)!
+        let post = feed[indexPath.row]
+        let likes = (post["likesCount"] as? Int)! + 1
+        post["likesCount"] = likes
+        post.saveInBackground()
+        cell.likeButton.isSelected = true
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return feed.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        //cell.textLabel?.text = data[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostTableViewCell
+        let post = feed[indexPath.row]
+        let caption = post["caption"] as! String
+        let image = post["media"] as! PFFile
+        let author = post["author"] as! PFUser
+        let likeCount = post["likesCount"] as! Int
+        
+        // on like, add current user to list of users who liked the post and
+        // change the displayed icon by pulling from API
+        cell.likesLabel.text = String(likeCount)
+        cell.captionLabel.text = caption
+        cell.photoView.file = image
+        cell.photoView.loadInBackground()
+        cell.userLabel.text = author.username
+        cell.userLabel2.text = author.username
+        cell.userView.file = author["image"] as? PFFile
+        cell.userView.loadInBackground()
+        
         return cell
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        //self.tableView.dataSource = self
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! UITableViewCell
+        if let indexPath = tableViewPosts.indexPath(for: cell) {
+            let post = feed[indexPath.row]
+            let detailsViewController = segue.destination as! DetailsViewController
+            detailsViewController.post = post
+        }
     }
-    
+    /*
     override func viewDidAppear(_ animated: Bool) {
         let hidden = self.navigationController?.isNavigationBarHidden
         print(hidden)
-        
-    }
+    }*/
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
