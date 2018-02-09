@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0113F9A2202E0C52004D7709 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0113F9A1202E0C52004D7709 /* DetailsViewController.swift */; };
 		015668B820227F8700385EF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015668B720227F8700385EF2 /* AppDelegate.swift */; };
 		015668BA20227F8700385EF2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015668B920227F8700385EF2 /* ViewController.swift */; };
 		015668BD20227F8700385EF2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 015668BB20227F8700385EF2 /* Main.storyboard */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0113F9A1202E0C52004D7709 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		015668B420227F8700385EF2 /* Instagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		015668B720227F8700385EF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		015668B920227F8700385EF2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				01CC9C81202CAD28003099ED /* PostTableViewCell.swift */,
 				01CC9C85202CBA35003099ED /* PostViewController.swift */,
 				01CC9C87202CDAF3003099ED /* Post.swift */,
+				0113F9A1202E0C52004D7709 /* DetailsViewController.swift */,
 			);
 			path = Instagram;
 			sourceTree = "<group>";
@@ -488,6 +491,7 @@
 				01CC9C86202CBA35003099ED /* PostViewController.swift in Sources */,
 				01CC9C4020228AE1003099ED /* LoginViewController.swift in Sources */,
 				015668BA20227F8700385EF2 /* ViewController.swift in Sources */,
+				0113F9A2202E0C52004D7709 /* DetailsViewController.swift in Sources */,
 				01CC9C4220278156003099ED /* AuthenticatedViewController.swift in Sources */,
 				015668B820227F8700385EF2 /* AppDelegate.swift in Sources */,
 				01CC9C88202CDAF3003099ED /* Post.swift in Sources */,
