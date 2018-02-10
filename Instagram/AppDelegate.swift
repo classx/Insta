@@ -49,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             print(PFUser.current()?.username! ?? " NONE")
             print("... is already logged in")
-            //window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "AuthenticatedViewController")
+            window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "tabBarController")
         }
         
         return true

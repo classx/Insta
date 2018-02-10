@@ -7,7 +7,11 @@
 //
 
 import UIKit
+import Parse
+import ParseUI
 
 class UserCell: UICollectionViewCell {
+    
+    @IBOutlet weak var photoView: PFImageView!
     
 }
